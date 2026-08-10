@@ -19,8 +19,8 @@ spendly/
     │   │   ├── repository/               # JdbcTemplate data access — no ORM
     │   │   └── model/                    # Plain record/POJO domain classes
     │   └── resources/
-    │       ├── application.properties    # Config, incl. server.port
-    │       ├── schema.sql                # SQLite schema (auto-run on startup)
+    │       ├── application.properties    # Config, incl. server.port, H2 datasource
+    │       ├── schema.sql                # H2 schema (auto-run on startup)
     │       ├── templates/
     │       │   ├── layout.html           # Shared Thymeleaf layout — all pages extend this
     │       │   └── *.html                # One template per page
@@ -56,7 +56,7 @@ spendly/
 ## Tech constraints
 
 - **Spring Boot only** — no separate frameworks layered on top (no Micronaut, no Quarkus)
-- **SQLite only** — no PostgreSQL/MySQL, no JPA/Hibernate ORM; access via `sqlite-jdbc` + `JdbcTemplate`
+- **H2 only** — no PostgreSQL/MySQL, no JPA/Hibernate ORM; access via the H2 JDBC driver + `JdbcTemplate`, running in **file-based, persistent mode** (not in-memory) so data survives restarts
 - **Vanilla JS only** — no React, no jQuery, no npm packages
 - **No new Maven dependencies** — work within `pom.xml` as-is unless explicitly told otherwise
 - Java 21 (LTS) assumed — virtual threads and records are fine to use
@@ -122,5 +122,5 @@ spendly/
 - **Never add new Maven dependencies** mid-feature without flagging it — keep `pom.xml` in sync
 - **Never use JS frameworks** — the frontend is intentionally vanilla
 - **Repository classes are currently empty** — do not assume methods exist until the step that implements them
-- **FK enforcement is manual** — SQLite foreign keys are off by default; the datasource must set `PRAGMA foreign_keys = ON` on every connection (via a connection init or `sqlite-jdbc` URL param)
+- **FK enforcement is automatic** — unlike SQLite, H2 enforces `FOREIGN KEY` constraints by default; no connection-init pragma is needed, just declare the constraint in `schema.sql`
 - The app runs on **port 5001**, not the Spring Boot default 8080 — configure via `server.port` in `application.properties`
