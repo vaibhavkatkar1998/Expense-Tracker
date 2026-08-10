@@ -12,7 +12,7 @@ import java.util.List;
 
 @Component
 public class DataSeeder implements CommandLineRunner {
-
+    // test comment
     private final UserRepository userRepository;
     private final ExpenseRepository expenseRepository;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
