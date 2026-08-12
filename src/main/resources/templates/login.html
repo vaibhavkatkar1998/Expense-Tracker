@@ -15,7 +15,19 @@
 
     <p class="success-message" th:if="${success}" th:text="${success}"></p>
 
-    <p>Login isn't available yet — check back soon.</p>
+    <p class="error-message" th:if="${error}" th:text="${error}"></p>
+
+    <form th:action="@{/login}" method="post">
+        <div class="form-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" th:value="${email}" required/>
+        </div>
+        <div class="form-field">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required/>
+        </div>
+        <button type="submit" class="btn-primary">Log in</button>
+    </form>
 
     <p class="form-footer-link">
         Need an account? <a th:href="@{/register}">Register</a>
