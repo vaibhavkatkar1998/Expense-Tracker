@@ -1,0 +1,128 @@
+:root {
+    --color-primary: #2f6f4f;
+    --color-primary-dark: #1f4d36;
+    --color-bg: #f7f7f5;
+    --color-surface: #ffffff;
+    --color-text: #1c1c1c;
+    --color-text-muted: #6b6b6b;
+    --color-border: #d9d9d4;
+    --color-error: #b3261e;
+    --color-error-bg: #fbeceb;
+    --color-success: #1f4d36;
+    --color-success-bg: #e8f3ec;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+
+.site-header {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.site-header .brand {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.site-footer {
+    padding: 1.5rem;
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+}
+
+.page-content {
+    max-width: 420px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+}
+
+.page-content h1 {
+    margin-top: 0;
+    font-size: 1.5rem;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.form-field label {
+    margin-bottom: 0.375rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.form-field input {
+    padding: 0.625rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.form-field input:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 1px;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary-dark);
+}
+
+.error-message {
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    background-color: var(--color-error-bg);
+    color: var(--color-error);
+    border-radius: 6px;
+    font-size: 0.875rem;
+}
+
+.success-message {
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    background-color: var(--color-success-bg);
+    color: var(--color-success);
+    border-radius: 6px;
+    font-size: 0.875rem;
+}
+
+.form-footer-link {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+.form-footer-link a {
+    color: var(--color-primary);
+}

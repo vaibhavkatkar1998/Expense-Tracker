@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Spendly</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<header th:fragment="header" class="site-header">
+    <a th:href="@{/}" class="brand">Spendly</a>
+</header>
+
+<footer th:fragment="footer" class="site-footer">
+    <p>&copy; Spendly</p>
+</footer>
+
+</body>
+</html>
