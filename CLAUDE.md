@@ -102,8 +102,8 @@ spendly/
 | Route | Status |
 |---|---|
 | `GET /` | Implemented — renders `landing.html` |
-| `GET /register` | Implemented — renders `register.html` |
-| `GET /login` | Implemented — renders `login.html` |
+| `GET /register` | Implemented — renders `register.html`; `POST /register` creates the account |
+| `GET /login` | Page shell only — renders `login.html` with a flash success message from registration; no auth form/logic yet (Step 3) |
 | `GET /logout` | Stub — Step 3 |
 | `GET /profile` | Stub — Step 4 |
 | `GET /expenses/add` | Stub — Step 7 |

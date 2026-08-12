@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Log in - Spendly</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<div th:insert="~{layout :: header}"></div>
+
+<main class="page-content">
+    <h1>Log in</h1>
+
+    <p class="success-message" th:if="${success}" th:text="${success}"></p>
+
+    <p>Login isn't available yet — check back soon.</p>
+
+    <p class="form-footer-link">
+        Need an account? <a th:href="@{/register}">Register</a>
+    </p>
+</main>
+
+<div th:insert="~{layout :: footer}"></div>
+
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>
