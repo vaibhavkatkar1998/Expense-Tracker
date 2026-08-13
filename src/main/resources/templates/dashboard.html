@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Spendly - Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}"/>
+</head>
+<body>
+
+<div th:insert="~{layout :: header}"></div>
+
+<main class="dashboard-content">
+
+    <section class="hero">
+        <h1>Track every rupee, effortlessly.</h1>
+        <p class="hero-subtitle">Spendly helps you log expenses, spot spending patterns, and stay on
+            budget — all in one clean, fast dashboard.</p>
+        <div class="hero-actions">
+            <a th:href="@{/login}" class="btn-primary hero-btn">Sign In</a>
+            <a th:href="@{/register}" class="btn-secondary hero-btn">Create an account</a>
+        </div>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>Log in seconds</h3>
+                <p>Add an expense with amount, category, and a note — no clutter.</p>
+            </div>
+            <div class="feature-card">
+                <h3>See where it goes</h3>
+                <p>Category breakdowns show exactly what's eating your budget.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Stay in control</h3>
+                <p>Recent activity keeps your latest spending front and center.</p>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<div th:insert="~{layout :: footer}"></div>
+
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

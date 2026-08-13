@@ -38,7 +38,7 @@ class LoginControllerTest {
     }
 
     @Test
-    void postLoginWithValidCredentialsSetsSessionAndRedirectsToLoginWithFlash() throws Exception {
+    void postLoginWithValidCredentialsSetsSessionAndRedirectsToDashboardWithFlash() throws Exception {
         long userId = userRepository.insert("Test User", "login-controller-test@example.com",
                 passwordEncoder.encode("password123"));
 
@@ -46,9 +46,10 @@ class LoginControllerTest {
                         .param("email", "login-controller-test@example.com")
                         .param("password", "password123"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/login"))
+                .andExpect(redirectedUrl("/"))
                 .andExpect(flash().attributeExists("success"))
-                .andExpect(request().sessionAttribute("userId", userId));
+                .andExpect(request().sessionAttribute("userId", userId))
+                .andExpect(request().sessionAttribute("userName", "Test User"));
     }
 
     @Test
@@ -77,13 +78,13 @@ class LoginControllerTest {
     }
 
     @Test
-    void getLogoutInvalidatesSessionAndRedirectsToLogin() throws Exception {
+    void getLogoutInvalidatesSessionAndRedirectsToDashboard() throws Exception {
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("userId", 1L);
 
         mockMvc.perform(get("/logout").session(session))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/login"));
+                .andExpect(redirectedUrl("/"));
 
         assertThat(session.isInvalid()).isTrue();
     }
@@ -103,7 +104,7 @@ class LoginControllerTest {
                         .param("email", "round-trip@example.com")
                         .param("password", "password123"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/login"))
+                .andExpect(redirectedUrl("/"))
                 .andExpect(request().sessionAttribute("userId", userId));
     }
 }

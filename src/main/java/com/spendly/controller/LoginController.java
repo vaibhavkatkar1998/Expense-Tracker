@@ -31,8 +31,9 @@ public class LoginController {
         try {
             User user = loginService.authenticate(email, password);
             session.setAttribute("userId", user.id());
+            session.setAttribute("userName", user.name());
             redirectAttributes.addFlashAttribute("success", "Logged in successfully!");
-            return "redirect:/login";
+            return "redirect:/";
         } catch (InvalidCredentialsException ex) {
             model.addAttribute("error", ex.getMessage());
             model.addAttribute("email", email);
@@ -43,6 +44,6 @@ public class LoginController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/login";
+        return "redirect:/";
     }
 }
