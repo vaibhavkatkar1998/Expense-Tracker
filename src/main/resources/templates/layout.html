@@ -13,6 +13,7 @@
     <div class="header-actions">
         <th:block th:if="${sessionUserName} != null">
             <span class="user-chip" th:text="'Hi, ' + ${sessionUserName}"></span>
+            <a th:href="@{/profile}" class="btn-profile-link">Profile</a>
             <a th:href="@{/logout}" class="btn-logout">Log out</a>
         </th:block>
         <th:block th:if="${sessionUserName} == null">

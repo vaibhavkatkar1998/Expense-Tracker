@@ -1,0 +1,157 @@
+.profile-content {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+}
+
+.profile-content h1 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.user-info-card {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.avatar-initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    color: var(--color-bg);
+    font-size: 1.25rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.user-details h2 {
+    margin: 0 0 0.25rem;
+    font-size: 1.25rem;
+}
+
+.user-details p {
+    margin: 0.15rem 0;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.stat-label {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.stat-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.panel {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.panel h2 {
+    margin-top: 0;
+    font-size: 1.1rem;
+}
+
+.category-bar {
+    margin-bottom: 1rem;
+}
+
+.category-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    margin-bottom: 0.375rem;
+}
+
+.category-bar-track {
+    height: 8px;
+    background-color: var(--color-surface-raised);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.category-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    border-radius: 999px;
+}
+
+.bar-100 {
+    width: 100%;
+}
+
+.bar-75 {
+    width: 75%;
+}
+
+.bar-50 {
+    width: 50%;
+}
+
+.bar-25 {
+    width: 25%;
+}
+
+.recent-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.recent-table th,
+.recent-table td {
+    text-align: left;
+    padding: 0.625rem 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.recent-table th {
+    color: var(--color-text-muted);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.category-pill {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background-color: var(--color-surface-raised);
+    font-size: 0.8rem;
+}
+
+.empty-state {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
