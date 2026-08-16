@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Spendly - Profile</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/profile.css}"/>
+</head>
+<body>
+
+<div th:insert="~{layout :: header}"></div>
+
+<main class="profile-content">
+
+    <section class="panel user-info-card">
+        <div class="avatar-initials" th:text="${initials}">VK</div>
+        <div class="user-details">
+            <h2 th:text="${user.name()}">User Name</h2>
+            <p th:text="${user.email()}">user@example.com</p>
+            <p th:text="'Member since ' + ${#temporals.format(user.createdAt(), 'MMMM yyyy')}">Member since January 2026</p>
+        </div>
+    </section>
+
+    <section class="stat-grid">
+        <div class="stat-card">
+            <span class="stat-label">Total Spent</span>
+            <span class="stat-value" th:text="'₹' + ${#numbers.formatDecimal(summary.totalSpent(), 1, 2)}">₹0.00</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Transactions</span>
+            <span class="stat-value" th:text="${summary.transactionCount()}">0</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Top Category</span>
+            <span class="stat-value" th:text="${topCategory}">N/A</span>
+        </div>
+    </section>
+
+    <section class="panel">
+        <h2>Recent Transactions</h2>
+        <table class="recent-table">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Amount</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="expense : ${summary.recentExpenses()}">
+                <td th:text="${expense.date()}">2026-01-01</td>
+                <td th:text="${expense.description()}">Description</td>
+                <td><span class="category-pill" th:text="${expense.category()}">Category</span></td>
+                <td th:text="'₹' + ${#numbers.formatDecimal(expense.amount(), 1, 2)}">₹0.00</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="panel">
+        <h2>Category Breakdown</h2>
+        <div class="category-bar" th:each="entry, status : ${summary.categoryTotals()}">
+            <div class="category-bar-label">
+                <span th:text="${entry.key}">Category</span>
+                <span th:text="'₹' + ${#numbers.formatDecimal(entry.value, 1, 2)}">₹0.00</span>
+            </div>
+            <div class="category-bar-track">
+                <div class="category-bar-fill"
+                     th:classappend="${status.index == 0} ? 'bar-100' : (${status.index == 1} ? 'bar-75' : (${status.index == 2} ? 'bar-50' : 'bar-25'))"></div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<div th:insert="~{layout :: footer}"></div>
+
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>
