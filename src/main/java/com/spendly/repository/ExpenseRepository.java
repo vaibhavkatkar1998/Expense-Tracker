@@ -36,6 +36,12 @@ public class ExpenseRepository {
         return jdbcTemplate.query(sql, EXPENSE_ROW_MAPPER, userId);
     }
 
+    public List<Expense> findByUserId(long userId, int limit, int offset) {
+        String sql = "SELECT id, user_id, amount, category, date, description, created_at "
+                + "FROM expenses WHERE user_id = ? ORDER BY date DESC, id DESC LIMIT ? OFFSET ?";
+        return jdbcTemplate.query(sql, EXPENSE_ROW_MAPPER, userId, limit, offset);
+    }
+
     public long insert(long userId, double amount, String category, String date, String description) {
         String sql = "INSERT INTO expenses (user_id, amount, category, date, description) VALUES (?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();

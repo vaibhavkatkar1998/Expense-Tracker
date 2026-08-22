@@ -25,15 +25,15 @@
     <section class="stat-grid">
         <div class="stat-card">
             <span class="stat-label">Total Spent</span>
-            <span class="stat-value" th:text="'₹' + ${#numbers.formatDecimal(summary.totalSpent(), 1, 2)}">₹0.00</span>
+            <span class="stat-value" th:text="'₹' + ${#numbers.formatDecimal(stats.totalSpent(), 1, 2)}">₹0.00</span>
         </div>
         <div class="stat-card">
             <span class="stat-label">Transactions</span>
-            <span class="stat-value" th:text="${summary.transactionCount()}">0</span>
+            <span class="stat-value" th:text="${stats.transactionCount()}">0</span>
         </div>
         <div class="stat-card">
             <span class="stat-label">Top Category</span>
-            <span class="stat-value" th:text="${topCategory}">N/A</span>
+            <span class="stat-value" th:text="${stats.topCategory()}">N/A</span>
         </div>
     </section>
 
@@ -49,19 +49,23 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="expense : ${summary.recentExpenses()}">
+            <th:block th:fragment="expenseRows">
+            <tr th:each="expense : ${expenses}">
                 <td th:text="${expense.date()}">2026-01-01</td>
                 <td th:text="${expense.description()}">Description</td>
                 <td><span class="category-pill" th:text="${expense.category()}">Category</span></td>
                 <td th:text="'₹' + ${#numbers.formatDecimal(expense.amount(), 1, 2)}">₹0.00</td>
             </tr>
+            </th:block>
             </tbody>
         </table>
+        <button type="button" id="load-more-expenses" class="btn-secondary"
+                th:if="${expenses != null and !expenses.isEmpty()}">Load more</button>
     </section>
 
     <section class="panel">
         <h2>Category Breakdown</h2>
-        <div class="category-bar" th:each="entry, status : ${summary.categoryTotals()}">
+        <div class="category-bar" th:each="entry, status : ${categoryTotals}">
             <div class="category-bar-label">
                 <span th:text="${entry.key}">Category</span>
                 <span th:text="'₹' + ${#numbers.formatDecimal(entry.value, 1, 2)}">₹0.00</span>
