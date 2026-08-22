@@ -2,47 +2,37 @@ package com.spendly.service;
 
 import com.spendly.model.Expense;
 import com.spendly.model.ExpenseSummary;
+import com.spendly.model.ProfileStats;
 import com.spendly.model.User;
+import com.spendly.repository.ExpenseRepository;
+import com.spendly.repository.UserRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class ProfileService {
 
-    public User getUser() {
-        return new User(1, "Vaibhav Katkar", "vaibhav.katkar2302@gmail.com",
-                "placeholder-hash", LocalDateTime.of(2026, 1, 10, 0, 0));
+    private final UserRepository userRepository;
+    private final ExpenseService expenseService;
+    private final ExpenseRepository expenseRepository;
+
+    public ProfileService(UserRepository userRepository, ExpenseService expenseService, ExpenseRepository expenseRepository) {
+        this.userRepository = userRepository;
+        this.expenseService = expenseService;
+        this.expenseRepository = expenseRepository;
     }
 
-    public ExpenseSummary getSummary() {
-        List<Expense> expenses = List.of(
-                new Expense(1, 1, 45.00, "Food", "2026-08-10", "Groceries", null),
-                new Expense(2, 1, 32.50, "Transport", "2026-08-09", "Fuel", null),
-                new Expense(3, 1, 95.00, "Entertainment", "2026-08-07", "Movie night", null),
-                new Expense(4, 1, 120.75, "Utilities", "2026-08-05", "Electricity bill", null),
-                new Expense(5, 1, 60.00, "Food", "2026-08-03", "Dinner out", null)
-        );
-
-        double totalSpent = expenses.stream().mapToDouble(Expense::amount).sum();
-
-        Map<String, Double> categoryTotals = expenses.stream()
-                .collect(Collectors.groupingBy(Expense::category,
-                        Collectors.summingDouble(Expense::amount)))
-                .entrySet().stream()
-                .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
-                        (a, b) -> a, LinkedHashMap::new));
-
-        return new ExpenseSummary(totalSpent, expenses.size(), categoryTotals, expenses);
+    public User getUser(long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
     }
 
-    public String getInitials() {
-        String[] parts = getUser().name().trim().split("\\s+");
+    public String getInitials(User user) {
+        String[] parts = user.name().trim().split("\\s+");
         String initials = parts[0].substring(0, 1);
         if (parts.length > 1) {
             initials += parts[parts.length - 1].substring(0, 1);
@@ -50,9 +40,20 @@ public class ProfileService {
         return initials.toUpperCase();
     }
 
-    public String getTopCategory() {
-        return getSummary().categoryTotals().keySet().stream()
+    public List<Expense> getRecentExpenses(long userId, int page, int pageSize) {
+        int offset = (page - 1) * pageSize;
+        return expenseRepository.findByUserId(userId, pageSize, offset);
+    }
+
+    public ProfileStats getSummaryStats(long userId) {
+        ExpenseSummary summary = expenseService.getSummaryForUser(userId);
+        String topCategory = summary.categoryTotals().keySet().stream()
                 .findFirst()
                 .orElse("N/A");
+        return new ProfileStats(summary.totalSpent(), summary.transactionCount(), topCategory);
+    }
+
+    public Map<String, Double> getCategoryBreakdown(long userId) {
+        return expenseService.getSummaryForUser(userId).categoryTotals();
     }
 }
